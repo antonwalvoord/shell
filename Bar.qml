@@ -5,6 +5,7 @@
 //
 
 import Quickshell
+import Quickshell.Hyprland
 import QtQuick
 
 Scope {
@@ -31,13 +32,21 @@ Scope {
                 radius: 10
                 color: "#BAF3DDBB"
 
-                OsIcon {
-                    id: osIcon
+                Row {
+                    spacing: 30
 
                     anchors {
                         leftMargin: 15
                         left: parent.left
                         verticalCenter: parent.verticalCenter
+                    }
+
+                    OsIcon {
+                        id: osIcon
+                    }
+
+                    WorkspaceTracker {
+                        id: workspace
                     }
                 }
 
@@ -49,38 +58,26 @@ Scope {
                     }
                 }
 
-                // TODO: Add a bar for these two to live in
-                Rectangle {
+                // Row which houses mouse and laptop battery percentages
+                Row {
                     id: batteryIcons
 
                     anchors {
-                        rightMargin: 15
+                        rightMargin: 20
                         right: parent.right
                         verticalCenter: parent.verticalCenter
                     }
 
-                    implicitHeight: battery.implicitHeight
-                    implicitWidth: battery.implicitWidth + mouse.implicitWidth + Constants.margin * 4
+                    spacing: 20
 
                     // radius: 10
-                    color: "transparent"
-
-                    BatteryWidget {
-                        id: battery
-
-                        anchors {
-                            right: parent.right
-                            verticalCenter: parent.verticalCenter
-                        }
-                    }
 
                     MouseWidget {
                         id: mouse
+                    }
 
-                        anchors {
-                            left: parent.left
-                            verticalCenter: parent.verticalCenter
-                        }
+                    BatteryWidget {
+                        id: battery
                     }
                 }
             }
