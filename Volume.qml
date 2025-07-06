@@ -52,7 +52,8 @@ Scope {
             Rectangle {
                 anchors.fill: parent
                 radius: height / 2
-                color: "#80000000"
+                // color: "#80000000"
+                color: Constants.backgroundColor
 
                 RowLayout {
                     anchors {
@@ -72,7 +73,7 @@ Scope {
                         font.family: "JetBrains Mono NF"
                         font.bold: true
                         font.pointSize: 20
-                        color: "white"
+                        color: Constants.textColor
                     }
 
                     Rectangle {
@@ -89,6 +90,8 @@ Scope {
                                 top: parent.top
                                 bottom: parent.bottom
                             }
+
+                            color: Constants.textColor
 
                             implicitWidth: parent.width * (Pipewire.defaultAudioSink?.audio.volume ?? 0)
                             radius: parent.radius

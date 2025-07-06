@@ -30,10 +30,10 @@ Scope {
                 anchors.fill: parent
 
                 radius: 10
-                color: "#BAF3DDBB"
+                color: Constants.backgroundColor
 
                 Row {
-                    spacing: 30
+                    spacing: 60
 
                     anchors {
                         leftMargin: 15
