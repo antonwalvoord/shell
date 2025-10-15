@@ -15,11 +15,12 @@ Row {
             text: model.text
             font.family: "JetBrains Mono NF"
             font.bold: true
-            font.pointSize: 13
+            font.pointSize: Constants.pointSize
             color: Constants.textColor
         }
     }
 
+    property var monitors: Hyprland.monitors
     property var focusedWorkspace: Hyprland.focusedWorkspace
     property int numWorkspaces: -1
     property list<int> validWorkspaces: [-1]
@@ -40,13 +41,15 @@ Row {
             // Append an indicator every few icons for readability
             if ((i - 1) % 3 == 0 && i - 1 > 0) {
                 textModel.append({
-                    text: "|"
+                    text: "//"
                 });
             }
             // Logic to handle if a workspace is focused or valid
             if (i == focusedWorkspace.id) {
                 textModel.append({
-                    text: "󰧲"
+                    text: "󰧲󰧲󰧲"
+                    //text: "󰌪󰌪"
+                    // text: monitors.values[0].id.toString()
                 });
             } else if (validWorkspaces.indexOf(i) != -1) {
                 textModel.append({

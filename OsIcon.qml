@@ -4,6 +4,6 @@ Text {
     text: ""
     font.family: "JetBrains Mono NF"
     font.bold: true
-    font.pointSize: 13
+    font.pointSize: Constants.pointSize
     color: Constants.textColor
 }

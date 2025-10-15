@@ -7,7 +7,8 @@ Singleton {
     id: root
 
     readonly property string time: {
-        Qt.formatDateTime(clock.date, "ddd MMM d hh:mm AP t yyyy");
+        // Qt.formatDateTime(clock.date, "ddd MMM d hh:mm AP t yyyy");
+        Qt.formatDateTime(clock.date, "ddd MMM d hh:mm AP");
     }
 
     SystemClock {
