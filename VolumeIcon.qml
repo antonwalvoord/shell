@@ -1,7 +1,9 @@
 import QtQuick
 import Quickshell.Services.Pipewire
+import Quickshell.Services.Mpris
 
 Text {
+    id: root
 
     property int volume: Math.round(Pipewire.defaultAudioSink?.audio.volume * 100)
     property bool muted: Pipewire.defaultAudioSink?.audio.muted

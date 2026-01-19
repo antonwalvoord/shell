@@ -5,14 +5,13 @@
 //
 
 import Quickshell
-import Quickshell.Hyprland
 import Quickshell.Services.Pipewire
 import QtQuick
 
 Scope {
 
     PwObjectTracker {
-        objects: [ Pipewire.defaultAudioSink ]
+        objects: [Pipewire.defaultAudioSink]
     }
 
     Variants {
