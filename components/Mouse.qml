@@ -1,6 +1,8 @@
 import QtQuick
 import Quickshell.Services.UPower
 
+import qs.singletons
+
 Text {
     property int mouseEnum: 5
     property bool mouseDetected: UPower.devices.values.find(item => item.type == mouseEnum) != undefined

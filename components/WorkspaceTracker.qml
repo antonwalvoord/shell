@@ -1,6 +1,8 @@
 import Quickshell.Hyprland
 import QtQuick
 
+import qs.singletons
+
 Row {
     id: workspaceRow
     ListModel {

@@ -1,6 +1,8 @@
 import QtQuick
 import Quickshell.Services.UPower
 
+import qs.singletons
+
 Text {
     property int soc: Math.round(UPower.displayDevice.percentage * 100)
     property bool onBattery: UPower.onBattery

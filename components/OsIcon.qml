@@ -1,7 +1,9 @@
 import QtQuick
 
+import qs.singletons
+
 Text {
-    text: Time.time
+    text: ""
     font.family: "JetBrains Mono NF"
     font.bold: true
     font.pointSize: Constants.pointSize

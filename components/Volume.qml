@@ -1,6 +1,9 @@
 import QtQuick
+import Quickshell
 import Quickshell.Services.Pipewire
 import Quickshell.Services.Mpris
+
+import qs.singletons
 
 Text {
     id: root

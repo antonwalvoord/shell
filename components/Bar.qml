@@ -8,6 +8,10 @@ import Quickshell
 import Quickshell.Services.Pipewire
 import QtQuick
 
+import qs.widgets
+import qs.singletons
+import qs.components
+
 Scope {
 
     PwObjectTracker {
@@ -75,7 +79,7 @@ Scope {
                 implicitWidth: clock.width + Constants.margin * 4
                 implicitHeight: clock.implicitHeight + Constants.margin * 2
 
-                ClockWidget {
+                Clock {
                     id: clock
 
                     anchors {
@@ -111,17 +115,26 @@ Scope {
 
                     // radius: 10
 
-                    VolumeIcon {
+                    Volume {
                         id: volume
+                        property bool drawerOpen: false
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: volume.drawerOpen = !volume.drawerOpen
+                        }
                     }
 
-                    MouseWidget {
+                    Mouse {
                         id: mouse
                     }
 
-                    BatteryWidget {
+                    Battery {
                         id: battery
                     }
+                }
+
+                VolumeDrawer {
+                    id: volumeDrawer
                 }
             }
         }
