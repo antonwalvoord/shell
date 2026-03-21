@@ -2,7 +2,6 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import Qt5Compat.GraphicalEffects
 import Quickshell.Services.Mpris
 
 import qs.singletons
@@ -16,7 +15,7 @@ PanelWindow {
 
     implicitHeight: volume.drawerOpen ? 300 : 0
     implicitWidth: 300
-    // margins.right: batteryIcons.implicitWidth - volume.implicitWidth
+    margins.right: 15
 
     property ObjectModel players: Mpris.players
     property list<QtObject> playerList: players.values
@@ -29,7 +28,7 @@ PanelWindow {
         GridLayout {
             anchors.fill: parent
             columns: 3
-            rowSpacing: 10
+            rowSpacing: 0
             columnSpacing: 10
 
             Rectangle {
@@ -55,10 +54,48 @@ PanelWindow {
                 }
             }
 
-            Row {
-                Layout.columnSpan: 2
+            ProgressBar {
+                id: progressBar
+                Layout.columnSpan: 3
                 Layout.fillWidth: true
-                height: 50
+
+                property real playerPosition: root.playerList[root.currentPlayer].position
+                property real length: root.playerList[root.currentPlayer].length
+                property real progress: playerPosition / length
+
+                Layout.margins: Constants.margin * 6
+                value: progress
+
+                contentItem: Item {
+                    Rectangle {
+                        width: progressBar.visualPosition * parent.width
+                        height: parent.height
+                        radius: Constants.radius
+                        color: Constants.textColor
+                    }
+                }
+
+                background: Rectangle {
+                    Layout.fillWidth: true
+                    implicitHeight: 12
+                    radius: Constants.radius
+                }
+            }
+
+            Rectangle {
+                Layout.columnSpan: 3
+                Layout.fillWidth: true
+                color: "transparent"
+                height: 60
+
+                Text {
+                    anchors.centerIn: parent
+                    text: "  "
+                    font.family: "JetBrains Mono NF"
+                    font.bold: true
+                    font.pointSize: Constants.pointSize * 2
+                    color: Constants.textColor
+                }
             }
         }
     }
