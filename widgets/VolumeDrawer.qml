@@ -19,7 +19,8 @@ PanelWindow {
 
     property ObjectModel players: Mpris.players
     property list<QtObject> playerList: players.values
-    property int currentPlayer: 0
+    property int currentPlayerNum: 0
+    property MprisPlayer player: playerList[currentPlayerNum]
 
     Rectangle {
         color: Constants.backgroundColor
@@ -49,7 +50,7 @@ PanelWindow {
                         fillMode: Image.PreserveAspectCrop
                         anchors.fill: parent
                         anchors.margins: Constants.margin * 2
-                        source: root.playerList[root.currentPlayer].trackArtUrl
+                        source: root.player.trackArtUrl
                     }
                 }
             }
@@ -59,8 +60,8 @@ PanelWindow {
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
 
-                property real playerPosition: root.playerList[root.currentPlayer].position
-                property real length: root.playerList[root.currentPlayer].length
+                property real playerPosition: root.player.position
+                property real length: root.player.length
                 property real progress: playerPosition / length
 
                 Layout.margins: Constants.margin * 6
@@ -98,5 +99,16 @@ PanelWindow {
                 }
             }
         }
+    }
+
+    Timer {
+        id: playbackTimer
+        // only emit the signal when the position is actually changing.
+        running: root.player.playbackState == MprisPlaybackState.Playing
+        // Make sure the position updates at least once per second.
+        interval: 1000
+        repeat: true
+        // emit the positionChanged signal every second.
+        onTriggered: root.player.positionChanged()
     }
 }
