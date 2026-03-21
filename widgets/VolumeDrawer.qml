@@ -28,36 +28,95 @@ PanelWindow {
         anchors.fill: parent
         GridLayout {
             anchors.fill: parent
-            columns: 3
+            columns: 1
             rowSpacing: 0
             columnSpacing: 10
 
+            // Player Artwork
             Rectangle {
-                Layout.columnSpan: 3
+                id: mprisArtGrid
+                Layout.columnSpan: 1
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.margins: Constants.margin * 6
                 color: "transparent"
                 Rectangle {
-                    height: parent.height
-                    width: height
+                    height: mprisArt.height + Constants.margin * 6
+                    width: mprisArt.width + Constants.margin * 6
                     anchors.centerIn: parent
                     radius: Constants.radius
-                    color: "transparent"
-                    border.color: Constants.textColor
-                    border.width: Constants.margin * 2
-                    Image {
-                        fillMode: Image.PreserveAspectCrop
-                        anchors.fill: parent
-                        anchors.margins: Constants.margin * 2
-                        source: root.player.trackArtUrl
+                    color: Constants.textColor
+                    Rectangle {
+                        anchors.centerIn: parent
+                        width: mprisArt.paintedWidth + 2
+                        height: mprisArt.paintedHeight + 2
+                        color: "grey"
+                        Image {
+                            id: mprisArt
+                            fillMode: Image.PreserveAspectFit
+                            height: mprisArtGrid.height - Constants.margin * 2
+                            width: mprisArtGrid.width - Constants.margin * 2
+                            anchors.centerIn: parent
+                            anchors.margins: Constants.margin * 2
+                            source: root.player.trackArtUrl
+                        }
                     }
                 }
             }
 
+            // Player title
+            Rectangle {
+                id: tickerContainer
+                Layout.columnSpan: 1
+                Layout.fillWidth: true
+                Layout.leftMargin: Constants.margin * 6
+                Layout.rightMargin: Constants.margin * 6
+                implicitHeight: ticker.implicitHeight
+                color: "transparent"
+                clip: true
+
+                Text {
+                    id: ticker
+                    text: root.player.trackTitle
+                    font.family: "JetBrains Mono NF"
+                    font.bold: true
+                    font.pointSize: Constants.pointSize
+                    color: Constants.textColor
+
+                    NumberAnimation {
+                        id: tickerAnim
+                        target: ticker
+                        property: "x"
+                        from: tickerContainer.width
+                        to: -ticker.implicitWidth
+                        duration: 10000
+                        loops: Animation.Infinite
+                    }
+
+                    function checkScroll() {
+                        tickerAnim.stop();
+                        if (ticker.implicitWidth > tickerContainer.width) {
+                            tickerAnim.start();
+                        } else {
+                            ticker.x = (tickerContainer.width - ticker.implicitWidth) / 2;
+                        }
+                    }
+                }
+
+                Connections {
+                    target: root.player
+                    function onPostTrackChanged() {
+                        ticker.checkScroll();
+                    }
+                }
+
+                Component.onCompleted: ticker.checkScroll()
+            }
+
+            // Progress through the playback
             ProgressBar {
                 id: progressBar
-                Layout.columnSpan: 3
+                Layout.columnSpan: 1
                 Layout.fillWidth: true
 
                 property real playerPosition: root.player.position
@@ -84,7 +143,7 @@ PanelWindow {
             }
 
             Rectangle {
-                Layout.columnSpan: 3
+                Layout.columnSpan: 1
                 Layout.fillWidth: true
                 color: "transparent"
                 height: 60
