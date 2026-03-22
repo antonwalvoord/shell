@@ -10,10 +10,11 @@ PanelWindow {
     id: root
     anchors.top: true
     anchors.right: true
+    property bool drawerOpen: false
 
     color: "transparent"
 
-    implicitHeight: volume.drawerOpen ? 300 : 0
+    implicitHeight: drawerOpen ? 300 : 0
     implicitWidth: 300
     margins.right: 15
 
@@ -75,32 +76,12 @@ PanelWindow {
                 color: "transparent"
                 clip: true
 
-                Text {
+                Ticker {
                     id: ticker
-                    text: root.player.trackTitle
-                    font.family: "JetBrains Mono NF"
-                    font.bold: true
-                    font.pointSize: Constants.pointSize
-                    color: Constants.textColor
-
-                    NumberAnimation {
-                        id: tickerAnim
-                        target: ticker
-                        property: "x"
-                        from: tickerContainer.width
-                        to: -ticker.implicitWidth
-                        duration: 10000
-                        loops: Animation.Infinite
-                    }
-
-                    function checkScroll() {
-                        tickerAnim.stop();
-                        if (ticker.implicitWidth > tickerContainer.width) {
-                            tickerAnim.start();
-                        } else {
-                            ticker.x = (tickerContainer.width - ticker.implicitWidth) / 2;
-                        }
-                    }
+                    player: root.player
+                    text: player.trackTitle
+                    containerWidth: tickerContainer.width
+                    showing: root.drawerOpen
                 }
 
                 Connections {
@@ -113,6 +94,34 @@ PanelWindow {
                 Component.onCompleted: ticker.checkScroll()
             }
 
+            // Track Artist
+            Rectangle {
+                id: artistContainer
+                Layout.columnSpan: 1
+                Layout.fillWidth: true
+                Layout.leftMargin: Constants.margin * 6
+                Layout.rightMargin: Constants.margin * 6
+                implicitHeight: artistTicker.implicitHeight
+                color: "transparent"
+                clip: true
+
+                Ticker {
+                    id: artistTicker
+                    player: root.player
+                    text: player.trackArtist
+                    containerWidth: artistContainer.width
+                    showing: root.drawerOpen
+                }
+
+                Connections {
+                    target: root.player
+                    function onPostTrackChanged() {
+                        artistTicker.checkScroll();
+                    }
+                }
+
+                Component.onCompleted: artistTicker.checkScroll()
+            }
             // Progress through the playback
             ProgressBar {
                 id: progressBar

@@ -117,10 +117,9 @@ Scope {
 
                     Volume {
                         id: volume
-                        property bool drawerOpen: false
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: volume.drawerOpen = !volume.drawerOpen
+                            onClicked: volumeDrawer.drawerOpen = !volumeDrawer.drawerOpen
                         }
                     }
 
