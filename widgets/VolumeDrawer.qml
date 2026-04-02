@@ -157,13 +157,42 @@ PanelWindow {
                 color: "transparent"
                 height: 60
 
-                Text {
+                Row {
                     anchors.centerIn: parent
-                    text: "  "
-                    font.family: "JetBrains Mono NF"
-                    font.bold: true
-                    font.pointSize: Constants.pointSize * 2
-                    color: Constants.textColor
+                    spacing: 30
+                    Text {
+                        text: ""
+                        font.family: "JetBrains Mono NF"
+                        font.bold: true
+                        font.pointSize: Constants.pointSize * 2
+                        color: Constants.textColor
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: root.player.previous()
+                        }
+                    }
+                    Text {
+                        text: root.player.isPlaying ? "" : ""
+                        font.family: "JetBrains Mono NF"
+                        font.bold: true
+                        font.pointSize: Constants.pointSize * 2
+                        color: Constants.textColor
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: root.player.togglePlaying()
+                        }
+                    }
+                    Text {
+                        text: ""
+                        font.family: "JetBrains Mono NF"
+                        font.bold: true
+                        font.pointSize: Constants.pointSize * 2
+                        color: Constants.textColor
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: root.player.next()
+                        }
+                    }
                 }
             }
         }
