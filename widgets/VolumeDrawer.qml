@@ -9,14 +9,15 @@ import qs.singletons
 PanelWindow {
     id: root
     anchors.top: true
-    anchors.right: true
+    //anchors.right: true
+    exclusionMode: ExclusionMode.Normal
     property bool drawerOpen: false
 
     color: "transparent"
 
     implicitHeight: drawerOpen ? 300 : 0
     implicitWidth: 300
-    margins.right: 15
+    //margins.right: 15
 
     property ObjectModel players: Mpris.players
     property list<QtObject> playerList: players.values
@@ -24,6 +25,7 @@ PanelWindow {
     property MprisPlayer player: playerList[currentPlayerNum]
 
     Rectangle {
+        id: drawerCanvas
         color: Constants.backgroundColor
         radius: Constants.radius * 3
         anchors.fill: parent
@@ -155,10 +157,11 @@ PanelWindow {
                 Layout.columnSpan: 1
                 Layout.fillWidth: true
                 color: "transparent"
-                height: 60
+                height: mprisControl.height + Constants.margin * 6
 
                 Row {
-                    anchors.centerIn: parent
+                    id: mprisControl
+                    anchors.horizontalCenter: parent.horizontalCenter
                     spacing: 30
                     Text {
                         text: ""
@@ -167,6 +170,7 @@ PanelWindow {
                         font.pointSize: Constants.pointSize * 2
                         color: Constants.textColor
                         MouseArea {
+                            z: 2
                             anchors.fill: parent
                             onClicked: root.player.previous()
                         }
@@ -178,6 +182,7 @@ PanelWindow {
                         font.pointSize: Constants.pointSize * 2
                         color: Constants.textColor
                         MouseArea {
+                            z: 2
                             anchors.fill: parent
                             onClicked: root.player.togglePlaying()
                         }
@@ -189,11 +194,30 @@ PanelWindow {
                         font.pointSize: Constants.pointSize * 2
                         color: Constants.textColor
                         MouseArea {
+                            z: 2
                             anchors.fill: parent
                             onClicked: root.player.next()
                         }
                     }
                 }
+            }
+        }
+
+        MouseArea {
+            id: mouseArea
+            z: 1
+            anchors.fill: parent
+            hoverEnabled: root.drawerOpen
+            propagateComposedEvents: true
+            onClicked: mouse => {
+                mouse.accepted = false;
+            }
+        }
+
+        Connections {
+            target: mouseArea
+            function onExited() {
+                root.drawerOpen = false;
             }
         }
     }

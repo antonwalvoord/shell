@@ -85,6 +85,10 @@ Scope {
                     anchors {
                         centerIn: parent
                     }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: volumeDrawer.drawerOpen = !volumeDrawer.drawerOpen
+                    }
                 }
             }
 
@@ -119,7 +123,15 @@ Scope {
                         id: volume
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: volumeDrawer.drawerOpen = !volumeDrawer.drawerOpen
+                            onClicked: pipewireDrawer.drawerOpen = !pipewireDrawer.drawerOpen
+                        }
+                    }
+
+                    Bluetooth {
+                        id: bluetooth
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: bluetoothDrawer.drawerOpen = !bluetoothDrawer.drawerOpen
                         }
                     }
 
@@ -134,6 +146,14 @@ Scope {
 
                 VolumeDrawer {
                     id: volumeDrawer
+                }
+
+                BluetoothDrawer {
+                    id: bluetoothDrawer
+                }
+
+                PipewireDrawer {
+                    id: pipewireDrawer
                 }
             }
         }
