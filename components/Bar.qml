@@ -142,6 +142,10 @@ Scope {
                     Battery {
                         id: battery
                     }
+
+                    // Fnlock {
+                    //     id: fnlock
+                    // }
                 }
 
                 VolumeDrawer {

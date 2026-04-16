@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell.Services.Mpris
+import Quickshell.Hyprland
 
 import qs.singletons
 
@@ -23,6 +24,16 @@ PanelWindow {
     property list<QtObject> playerList: players.values
     property int currentPlayerNum: 0
     property MprisPlayer player: playerList[currentPlayerNum]
+
+    screen: findMonitor()
+
+    function findMonitor() {
+        for (const s of Quickshell.screens) {
+            if (Hyprland.monitorFor(s) === Hyprland.focusedMonitor) {
+                return s;
+            }
+        }
+    }
 
     Rectangle {
         id: drawerCanvas
