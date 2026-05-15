@@ -25,6 +25,7 @@ Scope {
             property var modelData
             screen: modelData
             color: "transparent"
+            margins.top: Constants.margin
 
             anchors {
                 top: true
@@ -143,9 +144,13 @@ Scope {
                         id: battery
                     }
 
-                    // Fnlock {
-                    //     id: fnlock
-                    // }
+                    Fnlock {
+                        id: fnlock
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: fnlock.toggleLock()
+                        }
+                    }
                 }
 
                 VolumeDrawer {

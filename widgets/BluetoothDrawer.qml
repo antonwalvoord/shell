@@ -21,8 +21,9 @@ PanelWindow {
     color: "transparent"
 
     implicitHeight: drawerOpen ? drawerCanvas.implicitHeight : 0
-    implicitWidth: 300
+    implicitWidth: drawerOpen ? 300 : 0
     margins.right: 15
+    margins.top: Constants.margin * 6
 
     screen: findMonitor()
 
@@ -98,16 +99,16 @@ PanelWindow {
                         }
                         function connectionText() {
                             switch (model.state) {
-                                case BluetoothDeviceState.Disconnected:
-                                    return "Connect";
-                                case BluetoothDeviceState.Disconnecting:
-                                    return "Disconnecting";
-                                case BluetoothDeviceState.Connecting:
-                                    return "Connecting";
-                                case BluetoothDeviceState.Connected:
-                                    return "Disconnect";
-                                default:
-                                    return "error";
+                            case BluetoothDeviceState.Disconnected:
+                                return "Connect";
+                            case BluetoothDeviceState.Disconnecting:
+                                return "Disconnecting";
+                            case BluetoothDeviceState.Connecting:
+                                return "Connecting";
+                            case BluetoothDeviceState.Connected:
+                                return "Disconnect";
+                            default:
+                                return "error";
                             }
                         }
                     }

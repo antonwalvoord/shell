@@ -10,7 +10,7 @@ import qs.singletons
 PanelWindow {
     id: root
     anchors.top: true
-    //anchors.right: true
+    margins.top: Constants.margin * 6
     exclusionMode: ExclusionMode.Normal
     property bool drawerOpen: false
 

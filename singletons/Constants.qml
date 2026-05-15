@@ -17,6 +17,7 @@ Singleton {
     // property string backgroundColor: "#BAF3DDBB" // Canvas
     // property string backgroundColor: "#CDF58277" // Salmon
     // property string backgroundColor: "#AAa5c0e9" // Salmon
-    property string backgroundColor: "#CF9B689A" // Lavender
+    //property string backgroundColor: "#CF9B689A" // Lavender 0.812 opacity
+    property string backgroundColor: "#BF9B689A" // Lavender 0.749 opacity
 
 }
